@@ -1,0 +1,29 @@
+{
+    "name": "theunic/birthay-greetings-kata-php",
+    "description": "A simple refactoring exercise that is meant to teach something about dependency inversion and dependency injection",
+    "version": "1.0.0",
+    "keywords": ["kata", "practice", "coding dojo", "dojo", "birthday", "birthday-kata"],
+    "require": {
+        "swiftmailer/swiftmailer": "5.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "theUniC",
+            "email": "theunic@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "config": {
+        "bin-dir": "bin/"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "bin": ["src/main.php"]
+}
