@@ -1,7 +1,7 @@
 {
     "name": "theunic/birthay-greetings-kata-php",
     "description": "A simple refactoring exercise that is meant to teach something about dependency inversion and dependency injection",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": ["kata", "practice", "coding dojo", "dojo", "birthday", "birthday-kata"],
     "require": {
         "swiftmailer/swiftmailer": "5.0.*"
