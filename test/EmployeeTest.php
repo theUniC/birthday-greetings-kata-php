@@ -12,6 +12,9 @@ class EmployeeTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($employee->isBirthday(new XDate('2008/01/31')), 'his birthday');
     }
 
+    /**
+     * @test
+     */
     public function equality()
     {
         $base       = new Employee('First', 'Last', '1999/09/01', 'first@last.com');

@@ -76,7 +76,7 @@ class Employee
             if (null !== $obj->email) {
                 return false;
             }
-        } elseif (!$this->email == $obj->email) {
+        } elseif ($this->email != $obj->email) {
             return false;
         }
 
@@ -84,7 +84,7 @@ class Employee
             if (null !== $obj->firstName) {
                 return false;
             }
-        } elseif (!$this->firstName == $obj->firstName) {
+        } elseif ($this->firstName != $obj->firstName) {
             return false;
         }
 
@@ -92,7 +92,7 @@ class Employee
             if (null !== $obj->lastName) {
                 return false;
             }
-        } elseif (!$this->lastName == $obj->lastName) {
+        } elseif (!$this->lastName != $obj->lastName) {
             return false;
         }
 
