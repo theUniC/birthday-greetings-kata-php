@@ -14,7 +14,7 @@ To get started you should create a new project throught composer, based on this 
 
 ```bash
 wget http://getcomposer.org/composer.phar
-php composer.phar create-project theunic/birthay-greetings-kata-php birthday-greetings-kata-php 1.0.1
+php composer.phar create-project theunic/birthay-greetings-kata-php birthday-greetings-kata-php 1.0.2
 cd birthday-greetings-kata-php
 ```
 
