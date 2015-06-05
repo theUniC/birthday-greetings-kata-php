@@ -42,7 +42,7 @@ class BirthdayService
 
     public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
     {
-        $employees = $this->findAllWhoseBirthdayIs($fileName, $xDate);
+        $employees = (new CsvEmployeeRepository($fileName))->findAllWhoseBirthdayIs($xDate);
 
         foreach ($employees as $employee) {
             $recipient = $employee->getEmail();
@@ -73,10 +73,5 @@ class BirthdayService
     protected function doSendMessage(Swift_Message $msg)
     {
         $this->mailer->send($msg);
-    }
-
-    private function findAllWhoseBirthdayIs($fileName, XDate $xDate)
-    {
-        return (new CsvEmployeeRepository($fileName))->findAllWhoseBirthdayIs($xDate);
     }
 }
