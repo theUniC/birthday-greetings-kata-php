@@ -22,6 +22,8 @@ class BirthdayService
                 $this->sendMessage($smtpHost, $smtpPort, 'sender@here.com', $subject, $body, $recipient);
             }
         }
+
+        fclose($fileHandler);
     }
 
     private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient)
