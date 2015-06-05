@@ -23,7 +23,7 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
             $this->messagesSent[] = $msg;
         };
 
-        $this->service = new TestableBirthdayService();
+        $this->service = new TestableBirthdayService(__DIR__ . '/resources/employee_data.txt');
         $this->service->setMessageHandler($messageHandler->bindTo($this));
     }
 

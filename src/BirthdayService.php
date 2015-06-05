@@ -40,9 +40,19 @@ class BirthdayService
      */
     private $mailer;
 
+    /**
+     * @var CsvEmployeeRepository
+     */
+    private $employeeRepository;
+
+    public function __construct($fileName)
+    {
+        $this->employeeRepository = new CsvEmployeeRepository($fileName);
+    }
+
     public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
     {
-        $employees = (new CsvEmployeeRepository($fileName))->findAllWhoseBirthdayIs($xDate);
+        $employees = $this->employeeRepository->findAllWhoseBirthdayIs($xDate);
 
         foreach ($employees as $employee) {
             $recipient = $employee->getEmail();
