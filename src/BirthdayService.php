@@ -40,11 +40,16 @@ class BirthdayService
         $employees = $this->employeeRepository->findAllWhoseBirthdayIs($xDate);
 
         foreach ($employees as $employee) {
-            $recipient = $employee->getEmail();
-            $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
-            $subject = 'Happy Birthday!';
-            $this->sendMessage($smtpHost, $smtpPort, 'sender@here.com', $subject, $body, $recipient);
+            $this->sendBirthdayGreetingTo($employee, $smtpHost, $smtpPort);
         }
+    }
+
+    private function sendBirthdayGreetingTo($employee, $smtpHost, $smtpPort)
+    {
+        $recipient = $employee->getEmail();
+        $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
+        $subject = 'Happy Birthday!';
+        $this->sendMessage($smtpHost, $smtpPort, 'sender@here.com', $subject, $body, $recipient);
     }
 
     private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient)
@@ -63,8 +68,8 @@ class BirthdayService
         // Send the message
         $this->doSendMessage($msg);
     }
-
     // made protected for testing :-(
+
     protected function doSendMessage(Swift_Message $msg)
     {
         $this->mailer->send($msg);
