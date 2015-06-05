@@ -29,9 +29,10 @@ class BirthdayService
      */
     private $messenger;
 
-    public function __construct(EmployeeRepository $employeeRepository)
+    public function __construct(EmployeeRepository $employeeRepository, $smtpHost, $smtpPort)
     {
         $this->employeeRepository = $employeeRepository;
+        $this->messenger = new Messenger($smtpHost, $smtpPort);
     }
 
     public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
@@ -48,8 +49,6 @@ class BirthdayService
 
     private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient)
     {
-        $this->messenger = new Messenger($smtpHost, $smtpPort);
-
         // Create a mail session
         $this->mailer = Swift_Mailer::newInstance(Swift_SmtpTransport::newInstance($smtpHost, $smtpPort));
 

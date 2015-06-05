@@ -24,8 +24,11 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
         };
 
         $this->service = new TestableBirthdayService(
-            new CsvEmployeeRepository(__DIR__ . '/resources/employee_data.txt')
+            new CsvEmployeeRepository(__DIR__ . '/resources/employee_data.txt'),
+            'localhost',
+            static::$SMTP_PORT
         );
+
         $this->service->setMessageHandler($messageHandler->bindTo($this));
     }
 
