@@ -29,10 +29,10 @@ class BirthdayService
      */
     private $messenger;
 
-    public function __construct(EmployeeRepository $employeeRepository, $smtpHost, $smtpPort)
+    public function __construct(EmployeeRepository $employeeRepository, Messenger $messenger)
     {
         $this->employeeRepository = $employeeRepository;
-        $this->messenger = new Messenger($smtpHost, $smtpPort);
+        $this->messenger = $messenger;
     }
 
     public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
