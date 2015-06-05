@@ -1,5 +1,17 @@
 <?php
 
+class Messenger
+{
+    private $smtpHost;
+    private $smtpPort;
+
+    public function __construct($smtpHost, $smtpPort)
+    {
+        $this->smtpHost = $smtpHost;
+        $this->smtpPort = $smtpPort;
+    }
+}
+
 class BirthdayService
 {
     /**
@@ -11,6 +23,11 @@ class BirthdayService
      * @var EmployeeRepository
      */
     private $employeeRepository;
+
+    /**
+     * @var Messenger
+     */
+    private $messenger;
 
     public function __construct(EmployeeRepository $employeeRepository)
     {
@@ -31,6 +48,8 @@ class BirthdayService
 
     private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient)
     {
+        $this->messenger = new Messenger($smtpHost, $smtpPort);
+
         // Create a mail session
         $this->mailer = Swift_Mailer::newInstance(Swift_SmtpTransport::newInstance($smtpHost, $smtpPort));
 
