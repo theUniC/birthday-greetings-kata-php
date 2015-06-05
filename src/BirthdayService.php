@@ -45,9 +45,9 @@ class BirthdayService
      */
     private $employeeRepository;
 
-    public function __construct($fileName)
+    public function __construct($employeeRepository)
     {
-        $this->employeeRepository = new CsvEmployeeRepository($fileName);
+        $this->employeeRepository = $employeeRepository;
     }
 
     public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
