@@ -18,20 +18,20 @@ class BirthdayService
         $this->messenger = $messenger;
     }
 
-    public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
+    public function sendGreetings($fileName, XDate $xDate)
     {
         $employees = $this->employeeRepository->findAllWhoseBirthdayIs($xDate);
 
         foreach ($employees as $employee) {
-            $this->sendBirthdayGreetingTo($employee, $smtpHost, $smtpPort);
+            $this->sendBirthdayGreetingTo($employee);
         }
     }
 
-    private function sendBirthdayGreetingTo($employee, $smtpHost, $smtpPort)
+    private function sendBirthdayGreetingTo($employee)
     {
         $recipient = $employee->getEmail();
         $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
         $subject = 'Happy Birthday!';
-        $this->messenger->sendMessage($smtpHost, $smtpPort, 'sender@here.com', $subject, $body, $recipient);
+        $this->messenger->sendMessage('sender@here.com', $subject, $body, $recipient);
     }
 }

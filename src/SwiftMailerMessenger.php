@@ -23,7 +23,7 @@ class SwiftMailerMessenger
         $this->smtpPort = $smtpPort;
     }
 
-    public function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient)
+    public function sendMessage($sender, $subject, $body, $recipient)
     {
         // Create a mail session
         $this->mailer = Swift_Mailer::newInstance(Swift_SmtpTransport::newInstance($this->smtpHost, $this->smtpPort));
