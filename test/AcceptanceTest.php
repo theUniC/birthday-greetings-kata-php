@@ -19,19 +19,12 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $messageHandler = function (Swift_Message $msg) {
-            $this->messagesSent[] = $msg;
-        };
-
-        $this->service = new TestableBirthdayService(
+        $this->service = new BirthdayService(
             new CsvEmployeeRepository(__DIR__ . '/resources/employee_data.txt'),
-            new Messenger(
-                'localhost',
-                static::$SMTP_PORT
-            )
+            new FakeMessenger('localhost', static::$SMTP_PORT, function (Swift_Message $msg) {
+                $this->messagesSent[] = $msg;
+            })
         );
-
-        $this->service->setMessageHandler($messageHandler->bindTo($this));
     }
 
     public function tearDown()
@@ -65,18 +58,18 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class TestableBirthdayService extends BirthdayService
+class FakeMessenger extends Messenger
 {
     /**
      * @var Closure
      */
     private $callback;
 
-    public function setMessageHandler(Closure $callback)
+    public function __construct($smtpHost, $smtpPort, Closure $callback)
     {
         $this->callback = $callback;
 
-        return $this;
+        parent::__construct($smtpHost, $smtpPort);
     }
 
     protected function doSendMessage(Swift_Message $msg)
