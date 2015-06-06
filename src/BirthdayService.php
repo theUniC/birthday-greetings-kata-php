@@ -18,7 +18,7 @@ class BirthdayService
         $this->messenger = $messenger;
     }
 
-    public function sendGreetings($fileName, XDate $xDate)
+    public function sendGreetings(XDate $xDate)
     {
         $employees = $this->employeeRepository->findAllWhoseBirthdayIs($xDate);
 
