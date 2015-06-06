@@ -58,7 +58,7 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class FakeMessenger extends Messenger
+class FakeMessenger extends SwiftMailerMessenger
 {
     /**
      * @var Closure
