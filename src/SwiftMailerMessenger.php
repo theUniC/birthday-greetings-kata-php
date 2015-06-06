@@ -1,6 +1,6 @@
 <?php
 
-class SwiftMailerMessenger
+class SwiftMailerMessenger implements Messenger
 {
     /**
      * @var Swift_Mailer
