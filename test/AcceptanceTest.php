@@ -3,11 +3,6 @@
 class AcceptanceTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var int
-     */
-    private static $SMTP_PORT = 25;
-
-    /**
      * @var Swift_Message[]
      */
     private $messagesSent = [];
@@ -21,7 +16,14 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
     {
         $this->service = new BirthdayService(
             new CsvEmployeeRepository(__DIR__ . '/resources/employee_data.txt'),
-            new FakeMessenger('localhost', static::$SMTP_PORT, function (Swift_Message $msg) {
+            new CallbackMessenger(function ($sender, $subject, $body, $recipient) {
+                $msg = Swift_Message::newInstance($subject);
+                $msg
+                    ->setFrom($sender)
+                    ->setTo([$recipient])
+                    ->setBody($body)
+                ;
+
                 $this->messagesSent[] = $msg;
             })
         );
@@ -58,23 +60,21 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class FakeMessenger extends SwiftMailerMessenger
+class CallbackMessenger implements Messenger
 {
     /**
-     * @var Closure
+     * @var callable
      */
     private $callback;
 
-    public function __construct($smtpHost, $smtpPort, Closure $callback)
+    public function __construct(callable $callback)
     {
         $this->callback = $callback;
-
-        parent::__construct($smtpHost, $smtpPort);
     }
 
-    protected function doSendMessage(Swift_Message $msg)
+    public function sendMessage($sender, $subject, $body, $recipient)
     {
         $callable = $this->callback;
-        $callable($msg);
+        $callable($sender, $subject, $body, $recipient);
     }
 }

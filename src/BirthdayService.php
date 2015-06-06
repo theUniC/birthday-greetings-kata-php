@@ -12,7 +12,7 @@ class BirthdayService
      */
     private $messenger;
 
-    public function __construct(EmployeeRepository $employeeRepository, SwiftMailerMessenger $messenger)
+    public function __construct(EmployeeRepository $employeeRepository, Messenger $messenger)
     {
         $this->employeeRepository = $employeeRepository;
         $this->messenger = $messenger;
