@@ -59,22 +59,3 @@ class AcceptanceTest extends PHPUnit_Framework_TestCase
         $this->assertCount(0, $this->messagesSent, 'what? messages?');
     }
 }
-
-class CallbackMessenger implements Messenger
-{
-    /**
-     * @var callable
-     */
-    private $callback;
-
-    public function __construct(callable $callback)
-    {
-        $this->callback = $callback;
-    }
-
-    public function sendMessage($sender, $subject, $body, $recipient)
-    {
-        $callable = $this->callback;
-        $callable($sender, $subject, $body, $recipient);
-    }
-}
