@@ -13,8 +13,7 @@ How to get started
 To get started you should create a new project throught composer, based on this repository on packagist
 
 ```bash
-wget http://getcomposer.org/composer.phar
-php composer.phar create-project theunic/birthay-greetings-kata-php birthday-greetings-kata-php dev-master
+composer create-project theunic/birthay-greetings-kata-php birthday-greetings-kata-php dev-master
 cd birthday-greetings-kata-php
 ```
 
