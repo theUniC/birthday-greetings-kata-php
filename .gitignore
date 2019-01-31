@@ -1,4 +1,5 @@
 /bin
+!/bin/main.php
 /vendor
 /composer.phar
 /composer.lock

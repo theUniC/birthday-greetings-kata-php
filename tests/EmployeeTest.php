@@ -1,11 +1,16 @@
 <?php
+declare(strict_types=1);
 
-class EmployeeTest extends PHPUnit_Framework_TestCase
+namespace BirthdayGreetingsKata;
+
+use PHPUnit\Framework\TestCase;
+
+class EmployeeTest extends TestCase
 {
     /**
      * @test
      */
-    public function testBirthday()
+    public function birthday()
     {
         $employee = new Employee('foo', 'bar', '1990/01/31', 'a@b.c');
         $this->assertFalse($employee->isBirthday(new XDate('2008/01/30')), 'not his birthday');

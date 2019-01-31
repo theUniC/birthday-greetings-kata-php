@@ -1,6 +1,12 @@
 <?php
 
-class XDateTest extends PHPUnit_Framework_TestCase
+declare(strict_types=1);
+
+namespace BirthdayGreetingsKata;
+
+use PHPUnit\Framework\TestCase;
+
+class XDateTest extends TestCase
 {
     /**
      * @test

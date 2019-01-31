@@ -1,13 +1,16 @@
 <?php
 
-class BirthdayService
-{
-    /**
-     * @var Swift_Mailer
-     */
-    private $mailer;
+declare(strict_types=1);
 
-    public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort)
+namespace BirthdayGreetingsKata;
+
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
+
+final class BirthdayService
+{
+    public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort): void
     {
         $fileHandler = fopen($fileName, 'r');
         fgetcsv($fileHandler);
@@ -24,13 +27,15 @@ class BirthdayService
         }
     }
 
-    private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient)
+    private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient): void
     {
-        // Create a mail session
-        $this->mailer = Swift_Mailer::newInstance(Swift_SmtpTransport::newInstance($smtpHost, $smtpPort));
+        // Create a mailer
+        $mailer = new Swift_Mailer(
+            new Swift_SmtpTransport($smtpHost, $smtpPort)
+        );
 
         // Construct the message
-        $msg = Swift_Message::newInstance($subject);
+        $msg = new Swift_Message($subject);
         $msg
             ->setFrom($sender)
             ->setTo([$recipient])
@@ -38,12 +43,6 @@ class BirthdayService
         ;
 
         // Send the message
-        $this->doSendMessage($msg);
-    }
-
-    // made protected for testing :-(
-    protected function doSendMessage(Swift_Message $msg)
-    {
-        $this->mailer->send($msg);
+        $mailer->send($msg);
     }
 }

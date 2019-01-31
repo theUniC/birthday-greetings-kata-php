@@ -1,6 +1,10 @@
 <?php
 
-class Employee
+declare(strict_types=1);
+
+namespace BirthdayGreetingsKata;
+
+final class Employee
 {
     /**
      * @var XDate
@@ -30,27 +34,27 @@ class Employee
         $this->email = $email;
     }
 
-    public function isBirthday(XDate $today)
+    public function isBirthday(XDate $today): bool
     {
         return $today->isSameDay($this->birthDate);
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    public function __toString() 
+    public function __toString(): string
     {
         return 'Employee ' . $this->firstName . ' ' . $this->lastName . ' <' . $this->email . '> born ' . $this->birthDate;
     }
 
-    public function equals($obj)
+    public function equals($obj): bool
     {
         if ($this == $obj) {
             return true;
@@ -60,7 +64,7 @@ class Employee
             return false;
         }
 
-        if (!($obj instanceof Employee)) {
+        if (!($obj instanceof self)) {
             return false;
         }
 
@@ -76,7 +80,7 @@ class Employee
             if (null !== $obj->email) {
                 return false;
             }
-        } elseif ($this->email != $obj->email) {
+        } elseif ($this->email !== $obj->email) {
             return false;
         }
 
@@ -84,7 +88,7 @@ class Employee
             if (null !== $obj->firstName) {
                 return false;
             }
-        } elseif ($this->firstName != $obj->firstName) {
+        } elseif ($this->firstName !== $obj->firstName) {
             return false;
         }
 
@@ -92,7 +96,7 @@ class Employee
             if (null !== $obj->lastName) {
                 return false;
             }
-        } elseif (!$this->lastName != $obj->lastName) {
+        } elseif (!$this->lastName !== $obj->lastName) {
             return false;
         }
 

@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.5/phpunit.xsd"
          colors="true"
-         strict="true"
          verbose="true">
 
     <testsuites>
         <testsuite name="BirthdayKata">
-            <directory>./test</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>src/</directory>
+            <exclude>
+                <file>src/main.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
 
 </phpunit>
