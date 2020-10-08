@@ -4,12 +4,12 @@
     "version": "2.0.0",
     "keywords": ["kata", "practice", "coding dojo", "dojo", "birthday", "birthday-kata"],
     "require": {
+        "ext-json": "*",
         "swiftmailer/swiftmailer": "^6.1"
     },
     "require-dev": {
-        "ext-json": "*",
-        "phpunit/phpunit": "^7.5",
-        "symfony/process": "^4.2",
+        "phpunit/phpunit": "^9.3",
+        "symfony/process": "^5.1",
         "guzzlehttp/guzzle": "^6.3"
     },
     "license": "MIT",

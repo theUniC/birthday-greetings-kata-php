@@ -17,13 +17,14 @@ In order to use this Kata boilerplate you need to have installed Docker and Dock
 To get started you should create a new project throught composer, based on this repository on packagist
 
 ```bash
-composer create-project theunic/birthay-greetings-kata-php birthday-greetings-kata-php
-cd birthday-greetings-kata-php
+git clone git@git.cumlouder.com:trainings/birthday-greetings-kata.git
+cd birthday-greetings-kata
 ```
 
 To check that all the tests are passing just execute PHPUnit
 
 ```bash
+docker-compose up -d
 php bin/phpunit
 ```
 
