@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace BirthdayGreetingsKata;
+namespace Tests\BirthdayGreetingsKata;
 
+use BirthdayGreetingsKata\XDate;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class XDateTest extends TestCase
+final class XDateTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function getters()
+    #[Test]
+    public function getters(): void
     {
         $xDate = new XDate('1789/01/24');
         $this->assertEquals(1, $xDate->getMonth());
         $this->assertEquals(24, $xDate->getDay());
     }
 
-    /**
-     * @test
-     */
-    public function isSameDate()
+    #[Test]
+    public function isSameDate(): void
     {
         $xDate          = new XDate('1789/01/24');
         $sameDay        = new XDate('2001/01/24');
@@ -33,10 +31,8 @@ class XDateTest extends TestCase
         $this->assertFalse($xDate->isSameDay($notSameMonth),    'not same month');
     }
 
-    /**
-     * @test
-     */
-    public function equality()
+    #[Test]
+    public function equality(): void
     {
         $base       = new XDate("2000/01/02");
         $same       = new XDate("2000/01/02");
@@ -48,5 +44,4 @@ class XDateTest extends TestCase
         $this->assertTrue($base->equals($same));
         $this->assertFalse($base->equals($different));
     }
-
 }

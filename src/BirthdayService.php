@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace BirthdayGreetingsKata;
 
-use Swift_Mailer;
-use Swift_Message;
-use Swift_SmtpTransport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mime\Email;
 
 final class BirthdayService
 {
-    public function sendGreetings($fileName, XDate $xDate, $smtpHost, $smtpPort): void
+    public function sendGreetings(string $fileName, XDate $xDate, string $smtpHost, int $smtpPort): void
     {
-        $fileHandler = fopen($fileName, 'r');
+        $fileHandler = fopen($fileName, 'rb');
         fgetcsv($fileHandler);
 
         while ($employeeData = fgetcsv($fileHandler, null, ',')) {
@@ -27,20 +27,19 @@ final class BirthdayService
         }
     }
 
-    private function sendMessage($smtpHost, $smtpPort, $sender, $subject, $body, $recipient): void
+    private function sendMessage(string $smtpHost, int $smtpPort, string $sender, string $subject, string $body, string $recipient): void
     {
         // Create a mailer
-        $mailer = new Swift_Mailer(
-            new Swift_SmtpTransport($smtpHost, $smtpPort)
+        $mailer = new Mailer(
+            Transport::fromDsn('smtp://' . $smtpHost . ':' . $smtpPort)
         );
 
         // Construct the message
-        $msg = new Swift_Message($subject);
-        $msg
-            ->setFrom($sender)
-            ->setTo([$recipient])
-            ->setBody($body)
-        ;
+        $msg = (new Email())
+            ->subject($subject)
+            ->from($sender)
+            ->to($recipient)
+            ->text($body);
 
         // Send the message
         $mailer->send($msg);

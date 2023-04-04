@@ -1,26 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace BirthdayGreetingsKata;
+namespace Tests\BirthdayGreetingsKata;
 
+use BirthdayGreetingsKata\Employee;
+use BirthdayGreetingsKata\XDate;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class EmployeeTest extends TestCase
+final class EmployeeTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function birthday()
+    #[Test]
+    public function birthday(): void
     {
         $employee = new Employee('foo', 'bar', '1990/01/31', 'a@b.c');
         $this->assertFalse($employee->isBirthday(new XDate('2008/01/30')), 'not his birthday');
         $this->assertTrue($employee->isBirthday(new XDate('2008/01/31')), 'his birthday');
     }
 
-    /**
-     * @test
-     */
-    public function equality()
+    #[Test]
+    public function equality(): void
     {
         $base       = new Employee('First', 'Last', '1999/09/01', 'first@last.com');
         $same       = new Employee('First', 'Last', '1999/09/01', 'first@last.com');

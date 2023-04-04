@@ -5,12 +5,14 @@
     "keywords": ["kata", "practice", "coding dojo", "dojo", "birthday", "birthday-kata"],
     "require": {
         "ext-json": "*",
-        "swiftmailer/swiftmailer": "^6.1"
+        "php": ">=8.2",
+        "symfony/mailer": "^6.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.3",
-        "symfony/process": "^5.1",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^7.5",
+        "phpunit/phpunit": "^10.0",
+        "roave/security-advisories": "dev-latest",
+        "symfony/process": "^6.2"
     },
     "license": "MIT",
     "authors": [
@@ -21,7 +23,8 @@
     ],
     "minimum-stability": "stable",
     "config": {
-        "bin-dir": "bin/"
+        "bin-dir": "bin/",
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
@@ -32,6 +35,5 @@
         "psr-4": {
             "Tests\\BirthdayGreetingsKata\\": "tests/"
         }
-    },
-    "bin": ["src/main.php"]
+    }
 }

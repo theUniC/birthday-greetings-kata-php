@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Tests\BirthdayGreetingsKata;
 
 use BirthdayGreetingsKata\BirthdayService;
+use BirthdayGreetingsKata\XDate;
 use GuzzleHttp\Client;
+use PHPUnit\Framework\Attributes\After;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class AcceptanceTest extends TestCase
+final class AcceptanceTest extends TestCase
 {
     private const SMTP_HOST = '127.0.0.1';
     private const SMTP_PORT = 1025;
 
-    /**
-     * @var BirthdayService
-     */
-    private $service;
+    private BirthdayService $service;
 
-    /** @before */
+    #[Before]
     protected function startMailhog(): void
     {
         $whichDockerCompose = Process::fromShellCommandline('which docker-compose');
@@ -30,22 +31,20 @@ class AcceptanceTest extends TestCase
         }
 
         Process::fromShellCommandline('docker stop $(docker ps -a)')->run();
-        Process::fromShellCommandline('docker-compose up -d')->run();
+        Process::fromShellCommandline('docker compose up -d')->run();
 
         $this->service = new BirthdayService();
     }
 
-    /** @after */
+    #[After]
     protected function stopMailhog(): void
     {
         (new Client())->delete('http://127.0.0.1:8025/api/v1/messages');
-        Process::fromShellCommandline('docker-compose stop')->run();
-        Process::fromShellCommandline('docker-compose rm -f')->run();
+        Process::fromShellCommandline('docker compose stop')->run();
+        Process::fromShellCommandline('docker compose rm -f')->run();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function willSendGreetings_whenItsSomebodysBirthday(): void
     {
         $this->service->sendGreetings(
@@ -65,9 +64,7 @@ class AcceptanceTest extends TestCase
         $this->assertEquals('john.doe@foobar.com', $message['Content']['Headers']['To'][0]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function willNotSendEmailsWhenNobodysBirthday(): void
     {
         $this->service->sendGreetings(

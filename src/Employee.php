@@ -6,32 +6,11 @@ namespace BirthdayGreetingsKata;
 
 final class Employee
 {
-    /**
-     * @var XDate
-     */
-    private $birthDate;
+    private XDate $birthDate;
 
-    /**
-     * @var string
-     */
-    private $lastName;
-
-    /**
-     * @var string
-     */
-    private $firstName;
-
-    /**
-     * @var string
-     */
-    private $email;
-
-    public function __construct($firstName, $lastName, $birthDate, $email)
+    public function __construct(private string $firstName, private string $lastName, string $birthDate, private string $email)
     {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
         $this->birthDate = new XDate($birthDate);
-        $this->email = $email;
     }
 
     public function isBirthday(XDate $today): bool
@@ -54,7 +33,7 @@ final class Employee
         return 'Employee ' . $this->firstName . ' ' . $this->lastName . ' <' . $this->email . '> born ' . $this->birthDate;
     }
 
-    public function equals($obj): bool
+    public function equals(mixed $obj): bool
     {
         if ($this == $obj) {
             return true;
